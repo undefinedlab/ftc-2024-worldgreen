@@ -1,0 +1,58 @@
+/* components/ActionBar/UserProfile.module.css */
+.userProfile {
+  position: absolute;
+  bottom: 105px; /* Adjust based on your footer height */
+  right: 5px;
+  width: 200px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #333;
+  text-align: center;
+  font-size: 13px
+}
+
+.loginStep {
+  margin-top: 10px;
+
+  margin-bottom: 10px;
+}
+
+.loginStep h3 {
+  margin-bottom: 0px;
+}
+
+.buttonGreen, .buttonRed, .buttonBlue {
+  padding: 10px 10px;
+  width: 150px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.buttonGreen {
+  color: rgb(21, 215, 105);
+}
+
+.buttonRed {
+  color: rgb(255, 0, 0);
+}
+
+.buttonBlue {
+  color: rgb(0, 0, 0);
+}
+
+.userInfo p {
+  margin: 5px 0;
+}
