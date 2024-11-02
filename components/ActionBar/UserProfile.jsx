@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useWeb3Auth } from '../Web3AuthProvider';
 import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit';
 import styles from './UserProfile.module.css';
+import { Wallet } from 'ethers';
 
 export function UserProfile() {
   const { user, isLoading, isInitialized, login, logout } = useWeb3Auth();

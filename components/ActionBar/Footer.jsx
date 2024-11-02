@@ -3,6 +3,10 @@ import Image from 'next/image';
 import styles from './Footer.module.css';
 import UserProfile from './UserProfile';
 import { useWeb3Auth } from '../Web3AuthProvider';
+import { Reports } from '../Modals/Reports';
+import { Fund } from '../Modals/Fund';
+import { Meet } from '../Modals/Meet';
+import { Bot } from '../Bot/Bot.js';
 
 export function Footer({ onCreateEvent }) {
   const [showUserProfile, setShowUserProfile] = useState(false);
@@ -17,7 +21,19 @@ export function Footer({ onCreateEvent }) {
     if (type === 'profile') setActiveOverlay(null);
   };
 
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && inputText.trim()) {
+      if (activeOverlay !== 'bot') {
+        toggleOverlay('bot');
+      }
+      setSubmittedMessage(inputText.trim());
+      setInputText(''); 
+    }
+  };
 
   return (
     <>
@@ -42,6 +58,8 @@ export function Footer({ onCreateEvent }) {
               placeholder="Say Hi!"
               className={styles.footer__search_input}
               value={inputText}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
             />
           </div>
         </div>
@@ -79,7 +97,16 @@ export function Footer({ onCreateEvent }) {
 
         {/* Overlays */}
         {showUserProfile && <UserProfile />}
-    
+        {activeOverlay === 'events' && <Events />}
+        {activeOverlay === 'fund' && <Fund />}
+        {activeOverlay === 'meet' && <Meet />}
+        {activeOverlay === 'reports' && <Reports />}
+        {activeOverlay === 'bot' && (
+          <Bot 
+            inputMessage={submittedMessage} 
+            onClose={() => toggleOverlay(null)}
+          />
+        )}
       </div>
     </>
   );
