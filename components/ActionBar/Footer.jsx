@@ -4,7 +4,7 @@ import styles from './Footer.module.css';
 import UserProfile from './UserProfile';
 import { useWeb3Auth } from '../Web3AuthProvider';
 import { Reports } from '../Modals/Reports';
-import { Fund } from '../Modals/Fund';
+import { FundModal } from '../Modals/Fund';
 import { Meet } from '../Modals/Meet';
 import { Bot } from '../Bot/Bot.js';
 
@@ -16,9 +16,12 @@ export function Footer({ onCreateEvent }) {
   const { user, logout } = useWeb3Auth();
 
   const toggleOverlay = (type) => {
-    setActiveOverlay(activeOverlay === type ? null : type);
-    if (type !== 'profile') setShowUserProfile(false);
-    if (type === 'profile') setActiveOverlay(null);
+    if (type === 'profile') {
+      setShowUserProfile(!showUserProfile);
+    } else {
+      setActiveOverlay(activeOverlay === type ? null : type);
+      setShowUserProfile(false);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -28,10 +31,12 @@ export function Footer({ onCreateEvent }) {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && inputText.trim()) {
       if (activeOverlay !== 'bot') {
+        // First time - open modal
         toggleOverlay('bot');
       }
+      // Always submit the message
       setSubmittedMessage(inputText.trim());
-      setInputText(''); 
+      setInputText(''); // Clear input after submission
     }
   };
 
@@ -98,7 +103,7 @@ export function Footer({ onCreateEvent }) {
         {/* Overlays */}
         {showUserProfile && <UserProfile />}
         {activeOverlay === 'events' && <Events />}
-        {activeOverlay === 'fund' && <Fund />}
+        {activeOverlay === 'fund' && <FundModal />}
         {activeOverlay === 'meet' && <Meet />}
         {activeOverlay === 'reports' && <Reports />}
         {activeOverlay === 'bot' && (

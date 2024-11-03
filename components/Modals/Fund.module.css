@@ -1,0 +1,179 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 75vh;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-radius: 3rem;
+    color: black;
+    z-index: 2222122;
+    background: rgba(255, 255, 255, 0.858);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.8px);
+    -webkit-backdrop-filter: blur(9.8px);
+    border: 1px solid rgba(223, 223, 223, 0.31);
+    margin-bottom: 2.5%;
+
+}
+  
+  .modalContent {
+
+    width: 100%;
+
+
+}
+  
+  .header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
+  .title {
+    @apply text-2xl font-bold;
+  }
+  
+  .subtitle {
+    @apply text-gray-600;
+  }
+  
+  .closeButton {
+    @apply text-gray-500 hover:text-gray-700 text-2xl;
+  }
+  
+  .projectsGrid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6 mb-8;
+  }
+  
+  .projectCard {
+    @apply bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow;
+  }
+  
+  .projectImage {
+    @apply w-full h-48 object-cover;
+  }
+  
+  .projectContent {
+    @apply p-4;
+  }
+  
+  .projectTitle {
+    @apply font-semibold text-lg mb-2;
+  }
+  
+  .projectInfo {
+    @apply space-y-2 mb-4;
+  }
+  
+  .infoItem {
+    @apply flex items-center text-sm text-gray-600;
+  }
+  
+  .icon {
+    @apply w-4 h-4 mr-2;
+  }
+  
+  .progressContainer {
+    @apply mb-4;
+  }
+  
+  .progressBar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+  }
+  
+  .progressFill {
+    @apply bg-green-500 rounded-full h-2;
+  }
+  
+  .amountInfo {
+    @apply flex justify-between text-sm mt-1;
+  }
+  
+  .amount {
+    @apply text-gray-600;
+  }
+  
+  .fundButton {
+    @apply w-full bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 transition-colors;
+  }
+  
+  .statsGrid {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-4 mb-8;
+  }
+  
+  .statCard {
+    @apply bg-gray-50 p-4 rounded-lg text-center;
+  }
+  
+  .statIcon {
+    @apply w-6 h-6 mx-auto mb-2;
+  }
+  
+  .statValue {
+    @apply text-2xl font-bold;
+  }
+  
+  .statLabel {
+    @apply text-sm text-gray-600;
+  }
+  
+  .newsletter {
+    @apply bg-green-50 p-6 rounded-lg;
+  }
+  
+  .newsletterContent {
+    @apply flex items-center space-x-4;
+  }
+  
+  .newsletterInfo {
+    @apply flex-grow;
+  }
+  
+  .newsletterTitle {
+    @apply font-semibold mb-1;
+  }
+  
+  .subscribeButton {
+    @apply bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors;
+  }
+  
+  .fundingModal {
+    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50;
+  }
+  
+  .fundingContent {
+    @apply bg-white rounded-lg p-6 max-w-md w-full;
+  }
+  
+  .fundingTitle {
+    @apply text-xl font-bold mb-4;
+  }
+  
+  .inputContainer {
+    @apply mb-4;
+  }
+  
+  .inputLabel {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  
+  .input {
+    @apply w-full p-2 border rounded-lg;
+  }
+  
+  .buttonGroup {
+    @apply flex space-x-4;
+  }
+  
+  .confirmButton {
+    @apply flex-1 bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 transition-colors;
+  }
+  
+  .cancelButton {
+    @apply flex-1 bg-gray-200 text-gray-700 rounded-lg py-2 hover:bg-gray-300 transition-colors;
+  }

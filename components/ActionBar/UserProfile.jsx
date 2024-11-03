@@ -192,18 +192,11 @@ export function UserProfile() {
 
       {isFullyVerified && user && (
         <div className={styles.userInfo}>
-          <div className={styles.avatarContainer}>
-            <Image
-              src="/images/empty-avatar.png"
-              alt="User Avatar"
-              width={80}
-              height={80}
-              className={styles.avatar}
-            />
-          </div>
+      <div className={styles.CardPopUp}>
           <h3>{user.name}</h3>
           <p>Balance: {userBalance !== null ? `${userBalance} ETH` : 'Loading...'}</p>
         </div>
+      </div>
       )}
     </div>
   );

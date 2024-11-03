@@ -16,18 +16,17 @@ import { MetamaskAdapter } from '@web3auth/metamask-adapter';
 const clientId =
   'BBP-UuLBs-tTUxp4PwAtS2nQPW25oSLXUfAEg7H-FqTD9LOyMVgTlFDFEJLoMj2nij51yvRRCvYYeQnptrOYR_E';
 
-const chainConfig = {
-  chainNamespace: CHAIN_NAMESPACES.EIP155,
-  chainId: '0x15b32', 
-  rpcTarget: 'https://spicy-rpc.chiliz.com',
-  displayName: 'Chilliz Testnet',
-  blockExplorerUrl: 'https://testnet.chiliscan.com',
-  ticker: 'CHZ',
-  tickerName: 'Chilliz',
-  decimals: 18,
-  isTestnet: true,
-};
-
+  const chainConfig = {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: '0xaa36a7', // Sepolia
+    rpcTarget: 'https://sepolia.drpc.org',
+    displayName: 'Sepolia',
+    blockExplorerUrl: 'https://testnet.chiliscan.com',
+    ticker: 'ETH',
+    tickerName: 'Ethereum',
+    decimals: 18,
+    isTestnet: true,
+  };
 
 const ChillizConfig = chainConfig;
 const privateKeyProvider = new EthereumPrivateKeyProvider({

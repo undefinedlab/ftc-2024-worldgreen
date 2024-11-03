@@ -1,0 +1,43 @@
+{
+    "featured_projects": [
+      {
+        "id": 1,
+        "name": "Amazon Rainforest Protection",
+        "organization": "UNICEF & WWF Partnership",
+        "location": "Brazil",
+        "targetAmount": 40000,
+        "raisedAmount": 34500,
+        "carbonCredits": 75000,
+        "description": "Protecting 10,000 hectares of Amazon rainforest through community-led conservation.",
+        "imageUrl": "https://images.squarespace-cdn.com/content/v1/54ac9e94e4b0c9d38e248bf6/1569205163203-391L6J3NESJJS0IPDOWT/rainforest"
+      },
+      {
+        "id": 2,
+        "name": "Borneo Mangrove Restoration",
+        "organization": "Asian Forest Coalition",
+        "location": "Indonesia",
+        "targetAmount": 25000,
+        "raisedAmount": 17800,
+        "carbonCredits": 36500,
+        "description": "Restoring critical mangrove ecosystems in Borneo to protect coastlines and absorb CO₂.",
+        "imageUrl": "https://wwfint.awsassets.panda.org/img/web_247664_433588.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Highland Reforestation",
+        "organization": "Scottish National Trust",
+        "location": "Scotland",
+        "targetAmount": 38300,
+        "raisedAmount": 14200,
+        "carbonCredits": 41200,
+        "description": "Reviving native Caledonian forests through strategic reforestation efforts.",
+        "imageUrl": "https://www.carnegieclub.co.uk/resources/images/career/video-stills/glen-coe-1920-930.jpg"
+      }
+    ],
+    "platform_stats": {
+      "trees_planted": 147832,
+      "carbon_credits": 28721,
+      "countries": 23,
+      "supporters": 12445
+    }
+  }
