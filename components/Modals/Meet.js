@@ -13,21 +13,26 @@ const CONTRACT_ABI = [
 const CONTRACT_ADDRESS = "0x96B625E6ffC9b43c7D652F4c916a908d986649D5";
 
 const VideoPlayer = ({ videoUri }) => {
+  // Enhanced function to get YouTube video ID from both regular and shortened URLs
   const getYoutubeId = (url) => {
     if (!url) return null;
     
+    // Handle youtu.be format
     if (url.includes('youtu.be')) {
       const id = url.split('youtu.be/')[1]?.split('?')[0];
       return id || null;
     }
     
+    // Handle regular youtube.com format
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : null;
   };
 
+  // Clean up the video URI by removing any trailing parameters
   const cleanVideoUri = videoUri?.split('?')[0];
   
+  // Get YouTube ID
   const youtubeId = getYoutubeId(videoUri);
 
   if (youtubeId) {
@@ -68,11 +73,14 @@ const VideoPlayer = ({ videoUri }) => {
 const TimelineUpdate = ({ update, project }) => {
   const formattedDate = new Date(Number(update.timestamp) * 1000).toLocaleDateString();
   
+  // Check if description contains a video URL
   const isVideoUrl = (text) => {
     return text?.includes('youtu.be/') || text?.includes('youtube.com/');
   };
 
+  // Use description as video URL if it contains a YouTube link, otherwise use videoUri
   const videoUrl = isVideoUrl(update.description) ? update.description : update.videoUri;
+  // Use videoUri as description if description contains a YouTube link
   const descriptionText = isVideoUrl(update.description) ? update.videoUri : update.description;
 
   return (
@@ -162,9 +170,11 @@ export function Meet({ onClose }) {
           if (project.exists) {
             consecutiveFailures = 0;
             
+            // Get project updates
             const projectUpdates = await contract.getProjectUpdates(tokenId);
             const updateCount = await contract.getProjectUpdateCount(tokenId);
             
+            // Store project info for leaderboard
             allProjects.push({
               id: tokenId,
               plantType: project.plantType,
@@ -197,8 +207,10 @@ export function Meet({ onClose }) {
         tokenId++;
       }
 
+      // Sort updates chronologically (newest first)
       allUpdates.sort((a, b) => Number(b.timestamp) - Number(a.timestamp));
       
+      // Sort projects by update count for leaderboard
       allProjects.sort((a, b) => b.updateCount - a.updateCount);
       
       console.log('Fetched updates:', allUpdates);

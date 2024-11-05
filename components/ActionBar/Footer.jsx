@@ -12,7 +12,7 @@ export function Footer({ onCreateEvent }) {
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(null);
   const [inputText, setInputText] = useState('');
-  const [submittedMessage, setSubmittedMessage] = useState('');
+  const [pendingMessage, setPendingMessage] = useState(null);
   const { user, logout } = useWeb3Auth();
 
   const toggleOverlay = (type) => {
@@ -30,13 +30,19 @@ export function Footer({ onCreateEvent }) {
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && inputText.trim()) {
+      // Open bot if not already open
       if (activeOverlay !== 'bot') {
-        // First time - open modal
         toggleOverlay('bot');
       }
-      // Always submit the message
-      setSubmittedMessage(inputText.trim());
-      setInputText(''); // Clear input after submission
+      
+      // Set the complete message only when Enter is pressed
+      setPendingMessage({
+        text: inputText.trim(),
+        timestamp: Date.now()
+      });
+      
+      // Clear input
+      setInputText('');
     }
   };
 
@@ -59,7 +65,7 @@ export function Footer({ onCreateEvent }) {
         <div className={styles.footer__center}>
           <div className={styles.footer__search_container}>
             <input
-              type="search"
+              type="text" // Changed from search to text to prevent search behavior
               placeholder="Say Hi!"
               className={styles.footer__search_input}
               value={inputText}
@@ -102,14 +108,16 @@ export function Footer({ onCreateEvent }) {
 
         {/* Overlays */}
         {showUserProfile && <UserProfile />}
-        {activeOverlay === 'events' && <Events />}
         {activeOverlay === 'fund' && <FundModal />}
         {activeOverlay === 'meet' && <Meet />}
         {activeOverlay === 'reports' && <Reports />}
         {activeOverlay === 'bot' && (
           <Bot 
-            inputMessage={submittedMessage} 
-            onClose={() => toggleOverlay(null)}
+            pendingMessage={pendingMessage}
+            onClose={() => {
+              toggleOverlay(null);
+              setPendingMessage(null);
+            }}
           />
         )}
       </div>

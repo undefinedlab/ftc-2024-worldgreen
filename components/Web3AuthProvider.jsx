@@ -7,7 +7,7 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
-import { CHAIN_NAMESPACES, IProvider, WALLET_ADAPTERS, WEB3AUTH_NETWORK } from '@web3auth/base';
+import { CHAIN_NAMESPACES, WALLET_ADAPTERS, WEB3AUTH_NETWORK } from '@web3auth/base';
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider';
 import { Web3Auth } from '@web3auth/modal';
 import { ethers } from 'ethers';
@@ -16,23 +16,22 @@ import { MetamaskAdapter } from '@web3auth/metamask-adapter';
 const clientId =
   'BBP-UuLBs-tTUxp4PwAtS2nQPW25oSLXUfAEg7H-FqTD9LOyMVgTlFDFEJLoMj2nij51yvRRCvYYeQnptrOYR_E';
 
-  const chainConfig = {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: '0xaa36a7', // Sepolia
-    rpcTarget: 'https://sepolia.drpc.org',
-    displayName: 'Sepolia',
-    blockExplorerUrl: 'https://testnet.chiliscan.com',
-    ticker: 'ETH',
-    tickerName: 'Ethereum',
-    decimals: 18,
-    isTestnet: true,
-  };
+const chainConfig = {
+  chainNamespace: CHAIN_NAMESPACES.EIP155,
+  chainId: '0xaa36a7', // Sepolia
+  rpcTarget: 'https://sepolia.drpc.org',
+  displayName: 'Sepolia',
+  blockExplorerUrl: 'https://testnet.chiliscan.com',
+  ticker: 'ETH',
+  tickerName: 'Ethereum',
+  decimals: 18,
+  isTestnet: true,
+};
 
 const ChillizConfig = chainConfig;
 const privateKeyProvider = new EthereumPrivateKeyProvider({
   config: { chainConfig },
 });
-
 
 const modalConfig = {
   [WALLET_ADAPTERS.METAMASK]: {
@@ -50,6 +49,7 @@ const web3auth = new Web3Auth({
     modalConfig
   }
 });
+
 const metamaskAdapter = new MetamaskAdapter({
   clientId,
   sessionTime: 3600,
@@ -58,7 +58,6 @@ const metamaskAdapter = new MetamaskAdapter({
 });
 
 web3auth.configureAdapter(metamaskAdapter);
-
 
 const Web3AuthContext = createContext(null);
 
@@ -78,6 +77,7 @@ export const Web3AuthProvider = ({ children }) => {
         modalConfig
       });
       setIsInitialized(true);
+
       if (web3auth.connected) {
         console.log('Connected to Web3Auth');
 
@@ -86,11 +86,13 @@ export const Web3AuthProvider = ({ children }) => {
         const userInfo = await web3auth.getUserInfo();
         setUser(userInfo);
 
-        const ethProvider = new ethers.BrowserProvider(web3authProvider);
-        setEthersProvider(ethProvider);
+        // Create provider using ethers v6 syntax
+        const provider = new ethers.providers.Web3Provider(web3authProvider);
+        setEthersProvider(provider);
+        
         try {
-          const ethSigner = await ethProvider.getSigner();
-          setSigner(ethSigner);
+          const signer = provider.getSigner();
+          setSigner(signer);
         } catch (error) {
           console.warn('Unable to get signer:', error);
         }
@@ -101,10 +103,6 @@ export const Web3AuthProvider = ({ children }) => {
       setIsLoading(false);
     }
   }, []);
-
-  // useEffect(() => {
-  //   console.log(web3auth);
-  // }, []);
 
   useEffect(() => {
     initializeWeb3Auth();
@@ -118,16 +116,17 @@ export const Web3AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const web3authProvider = await web3auth.connect();
-
       setProvider(web3authProvider);
+
       if (web3auth.connected) {
         const userInfo = await web3auth.getUserInfo();
         setUser(userInfo);
 
-        const ethProvider = new ethers.BrowserProvider(web3authProvider);
-        setEthersProvider(ethProvider);
-        const ethSigner = await ethProvider.getSigner();
-        setSigner(ethSigner);
+        // Create provider using ethers v6 syntax
+        const provider = new ethers.providers.Web3Provider(web3authProvider);
+        setEthersProvider(provider);
+        const signer = provider.getSigner();
+        setSigner(signer);
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -182,7 +181,7 @@ export const Web3AuthProvider = ({ children }) => {
     try {
       const address = await signer.getAddress();
       const balance = await ethersProvider.getBalance(address);
-      return ethers.formatEther(balance);
+      return ethers.utils.formatEther(balance);
     } catch (error) {
       console.error('Error getting balance:', error);
       return null;
@@ -191,13 +190,7 @@ export const Web3AuthProvider = ({ children }) => {
 
   const switchChain = async () => {
     if (!ethersProvider || !signer) return null;
-    // try {
-    //   await web3auth.addChain(ChillizConfig);
-    //   await web3auth.switchChain({ chainId: '0x15b32' });
-    // } catch (error) {
-    //   console.error('Error Switching Chain:', error);
-    //   return null;
-    // }
+    // Implementation for chain switching would go here
   };
 
   const value = {
